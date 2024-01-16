@@ -1,21 +1,16 @@
 (ns clojure-alchemy-lab-game.core
-  (:require [quil.core :as q]))
-
-(defn setup []
-  (q/frame-rate 30)
-  ;设置帧率和颜色
-  (q/background 255))
+  (:require [quil.core :as q]
+            [clojure-alchemy-lab-game.draw :as draw]
+            [clojure-alchemy-lab-game.keyboard :as keyboard]))
 
 (defn update-state [state]
   state)
 
-(defn draw-state [state]
-  (q/fill 0)
-  (q/rect 10 10 100 100))
-
 (q/defsketch test
-             :title "测试"
+             :title "test"
              :size [400 400]
-             :setup setup
+             :setup draw/setup
              :update update-state
-             :draw draw-state)
+             :draw draw/draw-state
+             :key-pressed (fn [state key] (keyboard/handle-key-pressed state key))
+             :key-released (fn [state key] (keyboard/handle-key-released state key)))
